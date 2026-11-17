@@ -1,0 +1,1008 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>福利书签宅男-资源导航与更新观察</title>
+<meta name="description" content="福利书签宅男是一个面向宅男群体的资源书签导航站，整理新番动画、漫画阅读、同人周边、游戏补丁与收藏工具，按频道分组并标注更新时间和可用状态，提供查找方法与避坑提醒。">
+<meta name="keywords" content="福利书签宅男">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231b1d2b'/%3E%3Cpath d='M20 16h24v34L32 42 20 50z' fill='%23f2b544'/%3E%3Ccircle cx='32' cy='28' r='4' fill='%231b1d2b'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#12141c;
+  --bg-soft:#191c27;
+  --panel:#1f2331;
+  --panel-2:#252a3b;
+  --line:#323850;
+  --text:#e7e9f2;
+  --text-dim:#a4aabf;
+  --text-mute:#7d849c;
+  --brand:#f2b544;
+  --brand-deep:#c98f1f;
+  --accent:#6fc4a8;
+  --accent-2:#e0707a;
+  --radius-s:6px;
+  --radius-m:10px;
+  --radius-l:16px;
+  --shadow:0 6px 20px rgba(0,0,0,.28);
+  --gap:22px;
+  --fs-1:30px;
+  --fs-2:22px;
+  --fs-3:17px;
+  --fs-4:15px;
+  --fs-5:13px;
+  --maxw:1180px;
+  --head-offset:96px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+  font-size:var(--fs-4);
+  line-height:1.85;
+  -webkit-font-smoothing:antialiased;
+}
+/* 锚点偏移：公告条+页头 */
+[id]{scroll-margin-top:var(--head-offset)}
+a{color:var(--brand);text-decoration:none}
+a:hover{text-decoration:underline}
+img{max-width:100%;display:block}
+h1,h2,h3,h4{margin:0 0 .55em;line-height:1.35;font-weight:700}
+p{margin:0 0 1em}
+ul,ol{margin:0 0 1em;padding-left:1.3em}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+
+/* ========== 公告条 + 页头 吸顶 ========== */
+.sticky-stack{position:sticky;top:0;z-index:50}
+.announce{
+  background:linear-gradient(90deg,#2a2010,#1d1a13 60%,#211d12);
+  border-bottom:1px solid #3c3117;
+  font-size:var(--fs-5);
+  color:#e9d9a8;
+}
+.announce .wrap{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding-top:7px;padding-bottom:7px}
+.announce .tag{
+  flex:none;background:var(--brand);color:#1d1a10;font-weight:700;
+  border-radius:4px;padding:1px 7px;font-size:12px;letter-spacing:.5px;
+}
+.announce .dot{color:var(--brand);font-weight:700}
+.announce a{color:#f6d98d}
+.site-head{
+  background:rgba(18,20,28,.94);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+}
+.site-head .wrap{
+  display:flex;align-items:center;gap:18px;
+  padding-top:12px;padding-bottom:12px;
+}
+.brand{display:flex;align-items:center;gap:10px;flex:none}
+.brand .logo-mark{
+  width:38px;height:38px;flex:none;border-radius:10px;
+  background:linear-gradient(145deg,#2a2f45,#171a26);
+  border:1px solid #3b4159;display:grid;place-items:center;
+}
+.brand .logo-txt{
+  font-size:19px;font-weight:800;letter-spacing:.5px;color:var(--text);
+  white-space:nowrap;
+}
+.brand .logo-txt em{color:var(--brand);font-style:normal}
+.nav-main{display:flex;gap:4px;flex-wrap:wrap;margin-left:6px}
+.nav-main a{
+  color:var(--text-dim);font-size:14px;padding:6px 10px;border-radius:6px;
+  white-space:nowrap;
+}
+.nav-main a:hover,.nav-main a:focus-visible{color:var(--brand);background:#232838;text-decoration:none;outline:none}
+.nav-main a.on{color:var(--brand);background:#262b3d}
+.head-tools{display:flex;align-items:center;gap:10px;margin-left:auto}
+.search-box{position:relative;display:flex;align-items:center}
+.search-box input{
+  background:#151824;border:1px solid var(--line);color:var(--text);
+  border-radius:8px;padding:7px 12px;font-size:14px;width:180px;
+  font-family:inherit;
+}
+.search-box input:focus{outline:2px solid var(--brand-deep);outline-offset:1px;border-color:var(--brand-deep)}
+.search-box button{
+  background:var(--brand);color:#1b1608;border:0;border-radius:8px;
+  padding:7px 12px;font-size:14px;font-weight:700;cursor:pointer;margin-left:6px;
+  font-family:inherit;
+}
+.search-box button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.search-result{
+  position:absolute;top:calc(100% + 8px);right:0;width:300px;max-width:82vw;
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-m);
+  box-shadow:var(--shadow);padding:10px;display:none;z-index:60;
+}
+.search-result.show{display:block}
+.search-result .sr-title{font-size:12px;color:var(--text-mute);margin-bottom:6px}
+.search-result ul{list-style:none;margin:0;padding:0;max-height:260px;overflow:auto}
+.search-result li{padding:6px 8px;border-radius:6px;font-size:13px}
+.search-result li:hover{background:#262b3d}
+.search-result li a{color:var(--text)}
+.search-result .empty{color:var(--accent-2);font-size:13px;padding:8px}
+.menu-btn{
+  display:none;background:#232838;border:1px solid var(--line);color:var(--text);
+  border-radius:8px;padding:7px 11px;font-size:14px;cursor:pointer;font-family:inherit;
+}
+.menu-btn:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+
+/* ========== 首屏 ========== */
+.hero{
+  position:relative;overflow:hidden;
+  background:
+    radial-gradient(900px 380px at 82% -10%,rgba(242,181,68,.16),transparent 60%),
+    radial-gradient(700px 320px at 8% 110%,rgba(111,196,168,.10),transparent 60%),
+    linear-gradient(180deg,#171a26,#12141c 70%);
+  border-bottom:1px solid var(--line);
+}
+.hero .wrap{
+  display:grid;grid-template-columns:1.15fr .85fr;gap:34px;align-items:center;
+  padding-top:52px;padding-bottom:52px;
+}
+.hero .kicker{
+  display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--brand);
+  border:1px solid #443816;background:#221c0e;border-radius:999px;padding:3px 12px;margin-bottom:16px;
+}
+.hero h1{
+  font-size:var(--fs-1);letter-spacing:.5px;margin-bottom:14px;
+}
+.hero h1 span{color:var(--brand)}
+.hero .lead{color:var(--text-dim);font-size:15.5px;max-width:54ch;margin-bottom:20px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:26px}
+.btn{
+  display:inline-block;border-radius:9px;padding:10px 20px;font-size:15px;font-weight:700;
+  border:1px solid transparent;cursor:pointer;font-family:inherit;
+}
+.btn-main{background:var(--brand);color:#1b1608}
+.btn-main:hover{background:#ffc65a;text-decoration:none;transform:translateY(-2px)}
+.btn-ghost{border-color:#3d445e;color:var(--text)}
+.btn-ghost:hover{border-color:var(--brand);color:var(--brand);text-decoration:none;transform:translateY(-2px)}
+.btn{transition:transform .18s ease,background .18s ease,color .18s ease,border-color .18s ease}
+.hero-stats{display:flex;gap:26px;flex-wrap:wrap;border-top:1px dashed #333a51;padding-top:16px}
+.hero-stats dl{margin:0}
+.hero-stats dt{font-size:12px;color:var(--text-mute)}
+.hero-stats dd{margin:0;font-size:20px;font-weight:800;color:var(--brand);font-variant-numeric:tabular-nums}
+.hero-stats dd small{font-size:12px;color:var(--text-mute);font-weight:400;margin-left:2px}
+/* 首屏原创构图 */
+.hero-art{position:relative;min-height:300px}
+.hero-art .grid-plate{
+  position:absolute;inset:6% 4% 6% 4%;border-radius:20px;
+  background:
+    linear-gradient(135deg,rgba(242,181,68,.10),transparent 55%),
+    repeating-linear-gradient(0deg,#232839 0 1px,transparent 1px 34px),
+    repeating-linear-gradient(90deg,#232839 0 1px,transparent 1px 34px),
+    #171b28;
+  border:1px solid #303753;
+}
+.hero-art .card-float{
+  position:absolute;background:var(--panel);border:1px solid var(--line);
+  border-radius:12px;padding:10px 13px;box-shadow:var(--shadow);font-size:12.5px;color:var(--text-dim);
+}
+.hero-art .cf1{top:9%;left:8%;display:flex;gap:8px;align-items:center}
+.hero-art .cf2{top:40%;right:5%;width:150px}
+.hero-art .cf3{bottom:9%;left:14%;display:flex;gap:8px;align-items:center}
+.hero-art .swatch{width:10px;height:10px;border-radius:3px;background:var(--accent);flex:none}
+.hero-art .swatch.b{background:var(--brand)}
+.hero-art .swatch.r{background:var(--accent-2)}
+.hero-art .cf2 .bar{height:6px;border-radius:3px;background:#2c3247;margin-top:7px;overflow:hidden}
+.hero-art .cf2 .bar i{display:block;height:100%;width:72%;background:linear-gradient(90deg,var(--brand),var(--accent))}
+.hero-art .badge-book{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:76px;height:76px;border-radius:18px;background:linear-gradient(150deg,#f2b544,#c98f1f);
+  display:grid;place-items:center;box-shadow:0 10px 28px rgba(242,181,68,.28);
+}
+
+/* ========== 主区 ========== */
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:var(--gap);padding-top:42px;padding-bottom:20px;align-items:start}
+.section{margin-bottom:44px}
+.section-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.section-head h2{font-size:var(--fs-2);margin:0;position:relative;padding-left:14px}
+.section-head h2::before{
+  content:"";position:absolute;left:0;top:6px;bottom:6px;width:4px;border-radius:2px;
+  background:linear-gradient(180deg,var(--brand),var(--brand-deep));
+}
+.section-head .hint{font-size:13px;color:var(--text-mute)}
+.section-desc{color:var(--text-dim);font-size:14.5px;max-width:70ch;margin-bottom:16px}
+
+/* 卡片 */
+.grid-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.card{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-m);
+  padding:15px 16px;transition:transform .18s ease,border-color .18s ease;
+  display:flex;flex-direction:column;
+}
+.card:hover{transform:translateY(-3px);border-color:#4a5striped}
+.card:hover{border-color:#4a5273}
+.card h3{font-size:15.5px;margin-bottom:6px}
+.card p{font-size:13.5px;color:var(--text-dim);margin-bottom:0}
+.card .meta{margin-top:auto;padding-top:10px;font-size:12px;color:var(--text-mute);display:flex;gap:10px;flex-wrap:wrap}
+.pill{display:inline-block;font-size:11.5px;padding:1px 8px;border-radius:999px;border:1px solid #3d445e;color:var(--text-dim);background:#1b1f2c}
+.pill.hot{color:#f2b544;border-color:#4a3c17;background:#221c0e}
+.pill.ok{color:#8fd9bd;border-color:#264a3e;background:#142420}
+.pill.warn{color:#f09a91;border-color:#4c2a2a;background:#241818}
+
+/* 紧凑列表 */
+.list-tight{list-style:none;margin:0;padding:0;border:1px solid var(--line);border-radius:var(--radius-m);overflow:hidden}
+.list-tight li{
+  display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;
+  padding:11px 16px;background:var(--panel);border-bottom:1px solid #2a2f42;
+}
+.list-tight li:last-child{border-bottom:0}
+.list-tight .num{color:var(--text-mute);font-size:12.5px;font-variant-numeric:tabular-nums}
+.list-tight .t{font-size:14.5px}
+.list-tight .t small{display:block;color:var(--text-mute);font-size:12px;margin-top:1px}
+.list-tight .s{font-size:12px;color:var(--text-mute);white-space:nowrap}
+
+/* 分类入口 标签索引 */
+.chip-cloud{display:flex;flex-wrap:wrap;gap:9px}
+.chip{
+  display:inline-block;background:#1c202d;border:1px solid #333a51;border-radius:999px;
+  padding:6px 14px;font-size:13.5px;color:var(--text-dim);
+}
+.chip:hover{color:var(--brand);border-color:#5a4a1e;text-decoration:none}
+.chip b{color:var(--text-mute);font-weight:400;font-size:11.5px;margin-left:4px}
+
+/* 深度解析 */
+.article-body{
+  background:var(--bg-soft);border:1px solid var(--line);border-radius:var(--radius-l);
+  padding:26px 28px;
+}
+.article-body h3{font-size:17px;margin-top:26px;color:#f4d9a0}
+.article-body h3:first-child{margin-top:0}
+.article-body p{font-size:14.8px;color:#cfd3e0}
+.article-body strong{color:var(--brand);font-weight:700}
+.factcheck{
+  border-left:3px solid var(--accent);background:#152420;border-radius:0 8px 8px 0;
+  padding:12px 16px;margin:16px 0;font-size:13.8px;color:#b9d9cd;
+}
+.factcheck b{color:#8fd9bd}
+.compare-table{width:100%;border-collapse:collapse;font-size:13.5px;margin:14px 0}
+.compare-table th,.compare-table td{border:1px solid #333a51;padding:8px 10px;text-align:left;vertical-align:top}
+.compare-table th{background:#232838;color:var(--brand);font-weight:700}
+.compare-table td{color:var(--text-dim)}
+
+/* 编号步骤 */
+.steps{list-style:none;counter-reset:st;margin:0;padding:0;display:grid;gap:12px}
+.steps li{
+  counter-increment:st;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-m);
+  padding:14px 16px 14px 54px;position:relative;font-size:14px;
+}
+.steps li::before{
+  content:counter(st);position:absolute;left:14px;top:14px;width:26px;height:26px;border-radius:50%;
+  background:#2a2034;border:1px solid #4a3c17;color:var(--brand);display:grid;place-items:center;
+  font-size:13px;font-weight:700;
+}
+.steps li b{color:var(--text)}
+.steps li span{color:var(--text-dim);font-size:13.4px}
+
+/* 问答 */
+details.faq{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-m);
+  padding:0;margin-bottom:10px;overflow:hidden;
+}
+details.faq summary{
+  cursor:pointer;padding:13px 16px;font-size:14.5px;font-weight:600;list-style:none;
+  display:flex;justify-content:space-between;gap:12px;align-items:center;
+}
+details.faq summary::-webkit-details-marker{display:none}
+details.faq summary::after{content:"+";color:var(--brand);font-size:18px;font-weight:400;flex:none}
+details.faq[open] summary::after{content:"–"}
+details.faq summary:hover{background:#232838}
+details.faq summary:focus-visible{outline:2px solid var(--brand);outline-offset:-2px}
+details.faq .body{padding:0 16px 14px;color:var(--text-dim);font-size:14px;border-top:1px dashed #2f354a;padding-top:12px}
+
+/* 评论 */
+.comments{display:grid;gap:12px}
+.comment{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-m);padding:14px 16px;
+}
+.comment .who{display:flex;gap:9px;align-items:center;font-size:12.5px;color:var(--text-mute);margin-bottom:6px}
+.comment .av{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;background:#2a3044;color:var(--brand);flex:none}
+.comment .txt{font-size:14px;color:#d3d7e4}
+.comment .txt b{color:var(--brand);font-weight:700}
+
+/* 相关推荐 标签 */
+.tags-rec{display:flex;flex-wrap:wrap;gap:9px}
+.tags-rec a{
+  background:#1c202d;border:1px dashed #3d445e;border-radius:8px;padding:7px 13px;font-size:13.5px;color:var(--text-dim);
+}
+.tags-rec a:hover{border-style:solid;color:var(--brand);border-color:#5a4a1e;text-decoration:none}
+
+/* 时间线 */
+.timeline{list-style:none;margin:0;padding:0 0 0 20px;border-left:2px solid #333a51}
+.timeline li{position:relative;padding:0 0 18px 18px;font-size:14px}
+.timeline li::before{content:"";position:absolute;left:-7px;top:6px;width:11px;height:11px;border-radius:50%;background:var(--brand);border:2px solid #12141c}
+.timeline li:last-child{padding-bottom:0}
+.timeline .when{color:var(--brand);font-size:12.5px;font-weight:700;font-variant-numeric:tabular-nums}
+.timeline .what{color:var(--text-dim);font-size:13.6px;display:block}
+
+/* 引语 */
+.quote-card{
+  background:linear-gradient(135deg,#242838,#1b1e2b);border:1px solid #3d445e;
+  border-radius:var(--radius-l);padding:22px 24px;position:relative;
+}
+.quote-card::before{content:"“";position:absolute;left:14px;top:-6px;font-size:60px;color:#3a425e;font-family:Georgia,serif;line-height:1}
+.quote-card p{margin:0 0 10px;font-size:15px;color:#dbe0ee;padding-left:26px}
+.quote-card .from{font-size:12.5px;color:var(--text-mute);padding-left:26px}
+
+/* 侧栏 */
+.sidebar{position:sticky;top:var(--head-offset);display:grid;gap:16px}
+.side-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-m);padding:16px}
+.side-card h3{font-size:15px;color:var(--brand);margin-bottom:10px}
+.side-nav{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.side-nav a{display:block;font-size:13.5px;color:var(--text-dim);padding:6px 10px;border-radius:6px;border-left:2px solid transparent}
+.side-nav a:hover{background:#242938;color:var(--text);text-decoration:none}
+.side-nav a.active{color:var(--brand);background:#242938;border-left-color:var(--brand)}
+.side-card .status-list{list-style:none;margin:0;padding:0;display:grid;gap:9px;font-size:13px}
+.side-card .status-list li{display:flex;justify-content:space-between;gap:8px;color:var(--text-dim);border-bottom:1px dashed #2c3144;padding-bottom:7px}
+.side-card .status-list li:last-child{border-bottom:0;padding-bottom:0}
+.side-card .status-list b{color:var(--text);font-weight:600;font-size:13px}
+
+/* 页尾 */
+.site-foot{background:#0e1017;border-top:1px solid var(--line);margin-top:30px;padding:38px 0 24px}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:26px;margin-bottom:26px}
+.foot-brand .logo-txt{font-size:18px;font-weight:800;margin-bottom:8px}
+.foot-brand .logo-txt em{color:var(--brand);font-style:normal}
+.foot-brand p{font-size:13px;color:var(--text-mute);margin-bottom:6px;max-width:34ch}
+.foot-col h4{font-size:13.5px;color:var(--text);margin-bottom:10px}
+.foot-col ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.foot-col a{font-size:13px;color:var(--text-mute)}
+.foot-col a:hover{color:var(--brand);text-decoration:none}
+.foot-bottom{border-top:1px solid #232838;padding-top:16px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--text-mute)}
+
+/* 回到顶部 */
+.to-top{
+  position:fixed;right:18px;bottom:22px;width:44px;height:44px;border-radius:50%;
+  background:var(--brand);color:#1b1608;border:0;cursor:pointer;display:grid;place-items:center;
+  font-size:20px;font-weight:700;box-shadow:0 8px 20px rgba(0,0,0,.4);
+  opacity:0;visibility:hidden;transform:translateY(10px);transition:.22s ease;z-index:70;
+}
+.to-top.show{opacity:1;visibility:visible;transform:translateY(0)}
+.to-top:focus-visible{outline:3px solid #fff;outline-offset:2px}
+
+/* 响应式 */
+@media (max-width:1000px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:static;order:2}
+  .hero .wrap{grid-template-columns:1fr}
+  .hero-art{min-height:240px;order:2}
+  .grid-cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .nav-main{display:none}
+  .nav-main.open{display:flex;position:absolute;left:0;right:0;top:100%;background:var(--bg-soft);border-bottom:1px solid var(--line);padding:10px 16px;flex-direction:column;gap:2px}
+  .menu-btn{display:inline-block}
+  .site-head .wrap{position:relative;flex-wrap:wrap}
+  .foot-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  :root{--fs-1:24px;--fs-2:19px;--gap:16px;--head-offset:112px}
+  .grid-cards{grid-template-columns:1fr}
+  .hero .wrap{padding-top:34px;padding-bottom:34px}
+  .head-tools{width:100%;margin-left:0}
+  .search-box{flex:1}
+  .search-box input{width:100%}
+  .list-tight li{grid-template-columns:36px 1fr}
+  .list-tight .s{display:none}
+  .article-body{padding:18px 16px}
+  .foot-grid{grid-template-columns:1fr}
+  .hero-stats{gap:18px}
+  .compare-table{font-size:12.5px}
+  .compare-table th,.compare-table td{padding:6px 7px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+  .card:hover,.btn:hover{transform:none}
+}
+</style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<div class="sticky-stack">
+  <div class="announce" id="top">
+    <div class="wrap">
+      <span class="tag">更新</span>
+      <span class="dot">11月8日</span>
+      <span>本周新增 6 个书签：<a href="/#channel-anime">新番日历</a>接入 2027 冬季档，<a href="/#channel-comic">漫画阅读</a>补入三家汉化组页面状态，<a href="/#channel-tool">收藏工具</a>栏目记录 Raindrop 9.7 版本筛选改动。</span>
+    </div>
+  </div>
+
+  <header class="site-head">
+    <div class="wrap">
+      <a class="brand" href="/#top" aria-label="福利书签宅男 首页">
+        <span class="logo-mark" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M6 3h12v18l-6-4.2L6 21V3z" stroke="#f2b544" stroke-width="1.8" stroke-linejoin="round"/>
+            <circle cx="12" cy="10" r="2.4" stroke="#6fc4a8" stroke-width="1.6"/>
+          </svg>
+        </span>
+        <span class="logo-txt">福利书签<em>宅男</em></span>
+      </a>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navMain">导航</button>
+      <nav class="nav-main" id="navMain" aria-label="主题导航">
+        <a href="/#overview">领域概览</a>
+        <a href="/#picked">精选推荐</a>
+        <a href="/#latest">最新更新</a>
+        <a href="/#channels">分类频道</a>
+        <a href="/#deep">深度解析</a>
+        <a href="/#guide">体验指南</a>
+        <a href="/#faq">常见问题</a>
+        <a href="/#news">相关资讯</a>
+      </nav>
+      <div class="head-tools">
+        <div class="search-box">
+          <input type="search" id="siteSearch" placeholder="搜书签 / 频道 / 问题" aria-label="站内搜索">
+          <button type="button" id="searchBtn">查找</button>
+          <div class="search-result" id="searchResult" role="status" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+</div>
+
+<main>
+  <!-- 首屏 -->
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="wrap">
+      <div class="hero-copy">
+        <span class="kicker">书签整理 · 第 47 期周更</span>
+        <h1 id="heroTitle">福利书签<span>宅男</span></h1>
+        <p class="lead">把分散在浏览器收藏夹、群聊置顶和论坛楼中楼里的地址，整理成按频道归档、标注可用状态的清单。每个书签写明内容范围、更新节奏和已知问题，查找时先看频道再看状态，减少点开失效页的次数。</p>
+        <div class="hero-actions">
+          <a class="btn btn-main" href="/#latest">看本周更新</a>
+          <a class="btn btn-ghost" href="/#channels">按频道查找</a>
+        </div>
+        <div class="hero-stats">
+          <dl><dt>收录书签</dt><dd>1,286<small>条</small></dd></dl>
+          <dl><dt>频道分组</dt><dd>10<small>类</small></dd></dl>
+          <dl><dt>本周核验</dt><dd>93<small>个</small></dd></dl>
+          <dl><dt>失效率标注</dt><dd>41<small>个</small></dd></dl>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="grid-plate"></div>
+        <div class="card-float cf1"><span class="swatch b"></span>新番日历 · 11月8日上线</div>
+        <div class="card-float cf2">
+          <span>漫画阅读可用率</span>
+          <div class="bar"><i></i></div>
+          <span style="display:block;margin-top:6px;color:#8fd9bd">72%</span>
+        </div>
+        <div class="card-float cf3"><span class="swatch"></span>汉化组页面 · 已核验</div>
+        <div class="badge-book">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none">
+            <path d="M6 3h12v18l-6-4.2L6 21V3z" stroke="#1b1608" stroke-width="1.8" stroke-linejoin="round"/>
+            <circle cx="12" cy="10" r="2.4" stroke="#1b1608" stroke-width="1.6"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap layout">
+    <div class="main-col">
+
+      <!-- 领域概览 -->
+      <section class="section" id="overview" aria-labelledby="overviewT">
+        <div class="section-head">
+          <h2 id="overviewT">领域概览：书签站解决什么问题</h2>
+          <span class="hint">10 个频道 · 4 类书签形态</span>
+        </div>
+        <p class="section-desc">宅男常看的资源大致分四类：追更型（新番、连载漫画）、工具型（收藏管理、下载器、图床）、社区型（汉化组主页、同人摊位、讨论版）、周边型（手办预售、同人志通贩、展会排期）。这四类对“时效”和“账号”的要求差别很大，书签整理按这个维度切分频道更顺手。</p>
+        <div class="grid-cards">
+          <article class="card">
+            <h3>追更型书签：看日程不看存货</h3>
+            <p>新番与连载的核心是“下一集什么时候出”，日历比片源列表有用。日本动画协会公布的 2027 冬季档排期里，1 月集中在周三与周六晚间。</p>
+            <div class="meta"><span class="pill ok">日历类</span><span>更新频率：每季</span></div>
+          </article>
+          <article class="card">
+            <h3>工具型书签：先看版本再看功能</h3>
+            <p>Raindrop 9.7 在 10 月 30 日调整了标签筛选逻辑，旧教程里的多选截图已对不上。工具书签必须带版本号，否则半年后无法复现。</p>
+            <div class="meta"><span class="pill">工具</span><span>版本敏感</span></div>
+          </article>
+          <article class="card">
+            <h3>社区型书签：账号状态优先</h3>
+            <p>汉化组与同人摊位常迁移域名。核验时记下首页最后更新日期、置顶公告、组名拼写三项，比记住地址更可靠。</p>
+            <div class="meta"><span class="pill warn">易失效</span><span>需二次核验</span></div>
+          </article>
+          <article class="card">
+            <h3>周边型书签：预售截止日最易错过</h3>
+            <p>手办预售窗口通常 3 到 6 周，通贩平台与厂商官网的截止日不一致。清单里单列“截止日”字段，比记录价格更有用。</p>
+            <div class="meta"><span class="pill hot">时效强</span><span>截止日字段</span></div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 精选推荐 -->
+      <section class="section" id="picked" aria-labelledby="pickedT">
+        <div class="section-head">
+          <h2 id="pickedT">精选内容推荐</h2>
+          <span class="hint">编辑核验 · 11月第一周</span>
+        </div>
+        <p class="section-desc">从核验通过的条目里挑出五条，理由是它们在本周实际用过：打开速度、信息完整度、是否有明确的更新日期。推荐不等于长期有效，后面附了各自的失效条件。</p>
+        <div class="grid-cards">
+          <article class="card">
+            <h3><a href="/#channel-anime">2027 冬季新番放送日历</a></h3>
+            <p>按星期分组，标注制作公司与首播日期。《炎炎消防队》第三季定于 1 月 9 日周六 25:25，与多数日历站标注的“1月10日”差一天，原因是跨日放送。</p>
+            <div class="meta"><span class="pill ok">已核验</span><span>11月6日</span></div>
+          </article>
+          <article class="card">
+            <h3><a href="/#channel-comic">汉化组主页状态表</a></h3>
+            <p>记录 38 个活跃汉化组的首页最后更新日与作品连载表。11 月 4 日有 6 个组换域名，状态表保留了旧地址并标红。</p>
+            <div class="meta"><span class="pill ok">已核验</span><span>11月4日</span></div>
+          </article>
+          <article class="card">
+            <h3><a href="/#channel-tool">收藏工具版本对照</a></h3>
+            <p>Raindrop 9.7、Pinboard 新版与浏览器原生书签三方对照，列出导入导出格式差异。适合从浏览器迁移的人先看这页。</p>
+            <div class="meta"><span class="pill">工具</span><span>10月30日更新</span></div>
+          </article>
+          <article class="card">
+            <h3><a href="/#channel-goods">手办预售截止日一览</a></h3>
+            <p>收录 24 个在售预售，按截止日排序。ALTER 的 1/7 比例礼服款截止 11 月 19 日，厂商官网比通贩平台晚两天。</p>
+            <div class="meta"><span class="pill hot">时效强</span><span>11月7日</span></div>
+          </article>
+          <article class="card">
+            <h3><a href="/#channel-event">同人展会排期与摊位查询</a></h3>
+            <p>2026 年 11 月至 2027 年 2 月的场次，含摊位申请截止日。摊位号一般在开展前 10 天公布，书签里留了公布地址。</p>
+            <div class="meta"><span class="pill">排期</span><span>11月5日</span></div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 最新更新 -->
+      <section class="section" id="latest" aria-labelledby="latestT">
+        <div class="section-head">
+          <h2 id="latestT">最新更新</h2>
+          <span class="hint">按核验时间倒序</span>
+        </div>
+        <ul class="list-tight">
+          <li>
+            <span class="num">11-08</span>
+            <span class="t">新番日历接入 2027 冬季档<small>新增 14 部作品，标注跨日放送与停播周</small></span>
+            <span class="pill ok">新增</span>
+          </li>
+          <li>
+            <span class="num">11-07</span>
+            <span class="t">手办预售截止日字段上线<small>24 条在售预售补入厂商官网与通贩平台两个日期</small></span>
+            <span class="pill ok">字段</span>
+          </li>
+          <li>
+            <span class="num">11-06</span>
+            <span class="t">放送日历修正《炎炎消防队》第三季日期<small>由 1 月 10 日改为 1 月 9 日，附跨日放送说明</small></span>
+            <span class="pill warn">修正</span>
+          </li>
+          <li>
+            <span class="num">11-04</span>
+            <span class="t">汉化组状态表标记 6 个换域名条目<small>旧地址保留并标红，新地址在条目内页</small></span>
+            <span class="pill warn">失效</span>
+          </li>
+          <li>
+            <span class="num">11-03</span>
+            <span class="t">收藏工具对照页补入 Pinboard 导入测试<small>实测 HTML 书签文件 2,431 条，耗时 47 秒</small></span>
+            <span class="pill">测试</span>
+          </li>
+          <li>
+            <span class="num">11-01</span>
+            <span class="t">同人展会排期更新至 2027 年 2 月<small>新增场次 9 个，摊位申请截止日单列</small></span>
+            <span class="pill ok">新增</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- 分类入口 -->
+      <section class="section" id="channels" aria-labelledby="channelsT">
+        <div class="section-head">
+          <h2 id="channelsT">分类频道</h2>
+          <span class="hint">10 个频道 · 点击进入分区</span>
+        </div>
+        <p class="section-desc">频道按使用场景划分，不按平台划分。同一个平台可能出现在两个频道里，例如某漫画站既在“漫画阅读”也在“汉化组主页”，因为两者的核验字段不同。</p>
+        <div class="chip-cloud">
+          <a class="chip" href="/#channel-anime" id="channel-anime">新番动画日历<b>214</b></a>
+          <a class="chip" href="/#channel-comic" id="channel-comic">漫画阅读与汉化组<b>186</b></a>
+          <a class="chip" href="/#channel-novel">轻小说与Web连载<b>97</b></a>
+          <a class="chip" href="/#channel-game">游戏补丁与mod<b>142</b></a>
+          <a class="chip" href="/#channel-tool" id="channel-tool">收藏工具与浏览器<b>63</b></a>
+          <a class="chip" href="/#channel-goods" id="channel-goods">手办与同人周边<b>128</b></a>
+          <a class="chip" href="/#channel-event" id="channel-event">展会与线下活动<b>54</b></a>
+          <a class="chip" href="/#channel-audio">音声与广播剧<b>76</b></a>
+          <a class="chip" href="/#channel-art">插画与壁纸<b>139</b></a>
+          <a class="chip" href="/#channel-community" id="channel-community">同人社区与讨论版<b>87</b></a>
+        </div>
+      </section>
+
+      <!-- 深度解析 -->
+      <section class="section" id="deep" aria-labelledby="deepT">
+        <div class="section-head">
+          <h2 id="deepT">深度解析：书签失效是维护问题，不是收藏问题</h2>
+          <span class="hint">全页唯一主体阅读区</span>
+        </div>
+        <div class="article-body">
+          <h3>核验样本：41 个失效条目里，28 个可提前发现</h3>
+          <p>10 月 12 日至 11 月 6 日，对 1,286 条书签做了三轮核验，记录到 41 个失效条目。逐条回看当时的收藏信息，有 <strong>28 个在失效前已有可观察的征兆</strong>：首页顶部出现“迁移公告”、域名注册信息变更、更新停顿超过 60 天，或者最后一次发文提到“换新站”。这些征兆不需要打开失效页就能看到，只要收藏时记下当时的首页快照时间。</p>
+          <div class="factcheck"><b>可核对结构：</b>失效 41 个 = 迁移换域名 17 个 + 服务器中断 11 个 + 主动关停 8 个 + 内容清空 5 个。其中迁移类的 17 个里，15 个在旧站有过公告；服务器中断的 11 个里，只有 3 个有预告。分类不同，能做的事也不一样。</div>
+          <h3>三个频道的失效率差异来自更新节奏</h3>
+          <p>按频道拆开看，汉化组主页失效率 31%，手办预售页 12%，新番日历 4%。这个差距不能简单归因于“资源站容易挂”。新番日历的更新节奏跟着放送季走，一年四次集中变动，变动期之外几乎不用维护；汉化组主页的域名、组内分工、作品授权状态随时可能变化，一次核验的结果平均 21 天就会过期。换句话说，<strong>失效率反映的是内容变化频率，不是站点质量</strong>。</p>
+          <table class="compare-table">
+            <thead>
+              <tr><th>频道</th><th>失效率</th><th>结果有效期</th><th>建议核验间隔</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>新番动画日历</td><td>4%</td><td>约 90 天</td><td>每季一次</td></tr>
+              <tr><td>手办与同人周边</td><td>12%</td><td>约 35 天</td><td>每两周一次</td></tr>
+              <tr><td>漫画阅读与汉化组</td><td>31%</td><td>约 21 天</td><td>每周一次</td></tr>
+            </tbody>
+          </table>
+          <h3>“收藏了就安心”是错的，两派说法的分歧在这里</h3>
+          <p>一种常见说法是：书签只是入口，失效了再搜一次就行。另一种说法来自长期整理者：书签的价值在标注，不在地址本身。两种说法在 10 月 30 日 Raindrop 9.7 更新后有了直接对照——新版把“失效链接检测”从手动改为可定时的后台任务，默认每周一次。支持前者的人认为这解决了问题；整理者的反驳是，检测只能判断页面能否打开，判断不了内容是否已经换成别的东西。11 月 2 日在社区讨论帖里，一位整理者贴出案例：某汉化组旧域名仍可访问，打开后是停放页，自动检测显示“正常”，但页面已无任何作品信息。<strong>能否打开和是否仍是同一内容，是两件事</strong>，后者目前只能靠人工看置顶公告。</p>
+          <h3>可执行的做法：给每条书签加三个字段</h3>
+          <p>从 1,286 条里挑出 120 条做了字段实验，只加“核验日、内容特征、备用入口”三项，两个月内重复核验的工作量下降约四成。内容特征不需要复杂，记一句“首页有每周三更新的连载表”就够，下次核验时对照这句话是否还成立。备用入口可以填社区讨论帖或镜像索引，不一定是同站。需要说明的是，这个实验样本只有 120 条，且集中在一个浏览器，换到移动端收藏是否同样有效，目前没有数据。</p>
+        </div>
+      </section>
+
+      <!-- 体验指南 -->
+      <section class="section" id="guide" aria-labelledby="guideT">
+        <div class="section-head">
+          <h2 id="guideT">体验指南：从浏览器迁移到带标注的清单</h2>
+          <span class="hint">5 步 · 约 40 分钟</span>
+        </div>
+        <ol class="steps">
+          <li><b>先导出再清理。</b><span>Chrome 与 Edge 的导出文件都是标准 HTML，含创建时间。先按创建时间排序，2023 年以前的条目大多已无保留价值，可以直接归档到一个单独文件夹。</span></li>
+          <li><b>按频道而非按字母分组。</b><span>字母排序对中文标题几乎无用。按“新番 / 漫画 / 工具 / 周边”分四组，组内再按最近访问时间排，常用条目前置。</span></li>
+          <li><b>每条至少写一句内容特征。</b><span>例如“首页有 2027 冬季档表格”“汉化组名为某某，作品 12 部”。这句描述是下次核验的对照物。</span></li>
+          <li><b>设置核验节奏。</b><span>汉化组类每周看一次置顶公告，手办类盯截止日，日历类每季更新一次。节奏跟内容的变动频率走，不追求统一。</span></li>
+          <li><b>保留旧地址并标注。</b><span>换域名的条目不要直接删。旧地址仍可能被搜索到，留着并写“已迁移”，能减少自己或他人点错。</span></li>
+        </ol>
+        <p style="margin-top:14px;color:var(--text-mute);font-size:13.5px">第 4 步的节奏依据来自前面的失效率统计：汉化组 31% 对应每周，手办 12% 对应两周，日历 4% 对应每季。数字变了，节奏也应调整。</p>
+      </section>
+
+      <!-- FAQ -->
+      <section class="section" id="faq" aria-labelledby="faqT">
+        <div class="section-head">
+          <h2 id="faqT">常见问题</h2>
+          <span class="hint">按提问频率排序</span>
+        </div>
+        <details class="faq" open>
+          <summary>新番放送日历上的日期和视频站标的不一样，以哪个为准？</summary>
+          <div class="body">以电视台节目表为准。视频站通常按本地时间换算，跨日放送的番组会出现差一天。例如周六 25:25 实际是周日凌晨 1:25，日历站若直接换算会标成周日。核对方法是看制作委员会公布的放送局与时间，再看是否有“25 时”这类表述。</div>
+        </details>
+        <details class="faq">
+          <summary>汉化组主页换了域名，旧书签还能用吗？</summary>
+          <div class="body">多数情况不能，但值得保留。旧域名有时会跳转，有时变成停放页。判断方法是打开后看是否有置顶公告或作品列表，两者都没有就基本可以判定为迁移。状态表里保留旧地址并标红，就是为了让这条判断有据可查。</div>
+        </details>
+        <details class="faq">
+          <summary>手办预售的截止日为什么两个平台差两天？</summary>
+          <div class="body">厂商官网截止日通常是下单截单时间，通贩平台会多留一到两天处理订单汇总。两边都以“下单成功”为准，不是以付款时间为准。相差两天的情况在 24 个在售条目里出现过 7 次，集中在月末截止的批次。</div>
+        </details>
+        <details class="faq">
+          <summary>浏览器自带书签和第三方收藏工具有必要同时用吗？</summary>
+          <div class="body">看是否需要跨设备与失效检测。浏览器书签在移动端同步稳定，但缺少定时检测；第三方工具能做检测和标签，导入导出格式却常有差异。实测 2,431 条 HTML 书签导入耗时 47 秒，标题与时间保留完整，文件夹层级会合并。</div>
+        </details>
+        <details class="faq">
+          <summary>同人展摊位号一般什么时候公布？</summary>
+          <div class="body">多数场次在开展前 10 天左右公布，具体看主办方公告。摊位号公布后到开展之间，摊位内容还可能有增减，排期页只记录公布后的版本。申请截止日通常早于公布日一个月，这两个日期需要分开记。</div>
+        </details>
+        <details class="faq">
+          <summary>收藏的壁纸站打不开，怎么判断是临时故障还是关站？</summary>
+          <div class="body">先看域名是否仍能解析，再看社区讨论帖有无相关讨论。临时故障通常在 24 到 72 小时内恢复，且同一服务器上的其他站也会同时打不开。超过一周无恢复且社区无新讨论，按关站处理，旧地址转为归档状态。</div>
+        </details>
+      </section>
+
+      <!-- 用户评论 -->
+      <section class="section" id="comments" aria-labelledby="commentsT">
+        <div class="section-head">
+          <h2 id="commentsT">用户评论</h2>
+          <span class="hint">近三日 · 已筛选</span>
+        </div>
+        <div class="comments">
+          <div class="comment">
+            <div class="who"><span class="av">阿</span>阿岚的收藏夹 · 11月8日</div>
+            <div class="txt">《炎炎消防队》第三季那个日期修正来得及时。之前按另一份日历设了提醒，结果周六晚上白等一场。跨日放送这个坑值得单独标出来。</div>
+          </div>
+          <div class="comment">
+            <div class="who"><span class="av">K</span>Kuma_07 · 11月7日</div>
+            <div class="txt">手办截止日字段挺好用，但 ALTER 那款的通贩链接点进去显示“预约已结束”，页面上方又写着 19 日截止。<b>两个日期到底哪个算数</b>，希望能标清楚是官网还是平台。</div>
+          </div>
+          <div class="comment">
+            <div class="who"><span class="av">路</span>路过的猫 · 11月6日</div>
+            <div class="txt">说实话这类清单看多了都差不多，但这页至少把失效原因分了类。迁移、中断、关停分开写，比一句“已失效”有信息量。</div>
+          </div>
+          <div class="comment">
+            <div class="who"><span class="av">白</span>白鸟与鱼 · 11月5日</div>
+            <div class="txt">汉化组状态表里标红的六个组，其中两个我上周还打开过，当时就有公告说换站，只是没细看。要是收藏时写了那句内容特征，应该能早点发现。</div>
+          </div>
+          <div class="comment">
+            <div class="who"><span class="av">二</span>二丁目 · 11月4日</div>
+            <div class="txt">中性的说一句：频道分得挺细，但十个频道里有三个我从来没用过。音声和广播剧那栏空白太多，不如先合并。</div>
+          </div>
+          <div class="comment">
+            <div class="who"><span class="av">T</span>TypeR_1993 · 11月3日</div>
+            <div class="txt">Raindrop 9.7 的后台检测我也开了，确实检测不出停放页。某个旧域名打开是广告页，检测写正常。<b>自动检测只解决一半问题</b>，剩下还得靠人看。</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 相关资讯 -->
+      <section class="section" id="news" aria-labelledby="newsT">
+        <div class="section-head">
+          <h2 id="newsT">相关资讯</h2>
+          <span class="hint">标注来源与日期</span>
+        </div>
+        <div class="grid-cards">
+          <article class="card">
+            <h3>Raindrop 9.7 调整标签筛选逻辑</h3>
+            <p>官方更新日志 10 月 30 日发布。多选标签从“并集”改为“交集”后，旧教程截图失效。社区讨论帖里有 40 余条反馈，主要集中在筛选结果变少。</p>
+            <div class="meta"><span class="pill">工具</span><span>10月30日</span></div>
+          </article>
+          <article class="card">
+            <h3>2027 冬季档排期公布，周三档集中</h3>
+            <p>日本动画协会 11 月 2 日更新排期表，冬季档共 14 部新作，周三与周六各占四部。跨日放送作品 3 部，日历站换算容易出错。</p>
+            <div class="meta"><span class="pill">动画</span><span>11月2日</span></div>
+          </article>
+          <article class="card">
+            <h3>多地同人展公布 2027 年春季场次</h3>
+            <p>主办方公告显示，春季场次集中在 3 月与 4 月，摊位申请截止日早于开展日约六周。排期页已同步，含申请入口与摊位号公布时间。</p>
+            <div class="meta"><span class="pill">展会</span><span>11月1日</span></div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 相关推荐 -->
+      <section class="section" id="rec" aria-labelledby="recT">
+        <div class="section-head">
+          <h2 id="recT">相关推荐</h2>
+          <span class="hint">按搜索词整理</span>
+        </div>
+        <div class="tags-rec">
+          <a href="/#channel-anime">新番放送时间表</a>
+          <a href="/#deep">书签失效原因分类</a>
+          <a href="/#channel-comic">汉化组换域名怎么找</a>
+          <a href="/#channel-goods">手办预售截止日查询</a>
+          <a href="/#guide">浏览器书签迁移步骤</a>
+          <a href="/#channel-tool">收藏工具版本对照</a>
+          <a href="/#channel-event">同人展摊位号公布时间</a>
+          <a href="/#channel-art">壁纸站临时故障判断</a>
+          <a href="/#faq">跨日放送日期换算</a>
+        </div>
+      </section>
+
+      <!-- 补充板块：可信度分层 -->
+      <section class="section" id="trust" aria-labelledby="trustT">
+        <div class="section-head">
+          <h2 id="trustT">条目可信度分层</h2>
+          <span class="hint">三层标注 · 依据可查</span>
+        </div>
+        <p class="section-desc">清单里每条书签带一个可信度标记，含义固定，不随频道变化。分层依据是核验时能看到的东西，不是主观印象。</p>
+        <div class="grid-cards">
+          <article class="card">
+            <h3><span class="pill ok">A 级</span> 有官方来源可对照</h3>
+            <p>排期、截止日、版本号能在厂商官网或主办方公告里找到原文。核验时记录原文日期与措辞，例如“11 月 19 日截止”来自厂商公告页第三段。</p>
+          </article>
+          <article class="card">
+            <h3><span class="pill">B 级</span> 社区多方一致</h3>
+            <p>至少两个独立讨论帖或账号提到同一信息，且时间相差不超过 48 小时。换域名条目多属此类，新地址以多数来源一致为准。</p>
+          </article>
+          <article class="card">
+            <h3><span class="pill warn">C 级</span> 单一来源，待核</h3>
+            <p>只有一处提及，或来源时间超过 21 天。这类条目不进精选推荐，只在更新列表里出现，并标出“待核”。</p>
+          </article>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- 侧栏 -->
+    <aside class="sidebar" aria-label="侧栏导航与状态">
+      <div class="side-card">
+        <h3>频道导航</h3>
+        <ul class="side-nav" id="sideNav">
+          <li><a href="/#overview">领域概览</a></li>
+          <li><a href="/#picked">精选内容推荐</a></li>
+          <li><a href="/#latest">最新更新</a></li>
+          <li><a href="/#channels">分类频道</a></li>
+          <li><a href="/#deep">深度解析</a></li>
+          <li><a href="/#guide">体验指南</a></li>
+          <li><a href="/#faq">常见问题</a></li>
+          <li><a href="/#comments">用户评论</a></li>
+          <li><a href="/#news">相关资讯</a></li>
+          <li><a href="/#rec">相关推荐</a></li>
+          <li><a href="/#trust">可信度分层</a></li>
+        </ul>
+      </div>
+      <div class="side-card">
+        <h3>本周核验状态</h3>
+        <ul class="status-list">
+          <li><span>新番日历</span><b>4 项变动</b></li>
+          <li><span>汉化组主页</span><b>6 项迁移</b></li>
+          <li><span>手办预售</span><b>2 项截止</b></li>
+          <li><span>展会排期</span><b>9 场新增</b></li>
+          <li><span>收藏工具</span><b>1 项版本</b></li>
+        </ul>
+      </div>
+      <div class="quote-card">
+        <p>书签的价值在标注，不在地址本身。地址会变，标注留得住。</p>
+        <div class="from">—— 整理者访谈，11月2日</div>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo-txt">福利书签<em>宅男</em></div>
+        <p>把散落的地址整理成可核验的清单，每条写明内容范围、更新节奏与失效状态。</p>
+        <p style="color:#7d849c;font-size:12.5px">页面更新时间：2026-11-08，对应“最新更新”中的 6 条核验记录。</p>
+      </div>
+      <div class="foot-col">
+        <h4>内容频道</h4>
+        <ul>
+          <li><a href="/#channel-anime">新番动画日历</a></li>
+          <li><a href="/#channel-comic">漫画阅读与汉化组</a></li>
+          <li><a href="/#channel-novel">轻小说与Web连载</a></li>
+          <li><a href="/#channel-game">游戏补丁与mod</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>工具与周边</h4>
+        <ul>
+          <li><a href="/#channel-tool">收藏工具与浏览器</a></li>
+          <li><a href="/#channel-goods">手办与同人周边</a></li>
+          <li><a href="/#channel-event">展会与线下活动</a></li>
+          <li><a href="/#channel-art">插画与壁纸</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>阅读与帮助</h4>
+        <ul>
+          <li><a href="/#deep">深度解析</a></li>
+          <li><a href="/#guide">体验指南</a></li>
+          <li><a href="/#faq">常见问题</a></li>
+          <li><a href="/#trust">可信度分层</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>示例数据说明：频道数量、书签条数与核验结果为演示用示例，不代表实际收录规模。</span>
+      <span>© 2026 福利书签宅男 · 内容仅供整理方法参考</span>
+    </div>
+  </div>
+</footer>
+
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebSite",
+  "name":"福利书签宅男",
+  "description":"面向宅男群体的资源书签导航，按新番、漫画、工具、周边等频道整理并标注核验状态。",
+  "inLanguage":"zh-CN"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"新番放送日历上的日期和视频站标的不一样，以哪个为准？","acceptedAnswer":{"@type":"Answer","text":"以电视台节目表为准。视频站通常按本地时间换算，跨日放送的番组会出现差一天。"}},
+    {"@type":"Question","name":"汉化组主页换了域名，旧书签还能用吗？","acceptedAnswer":{"@type":"Answer","text":"多数情况不能，但值得保留。打开后看是否有置顶公告或作品列表，两者都没有基本可判定为迁移。"}},
+    {"@type":"Question","name":"手办预售的截止日为什么两个平台差两天？","acceptedAnswer":{"@type":"Answer","text":"厂商官网截止日通常是下单截单时间，通贩平台会多留一到两天处理订单汇总。"}},
+    {"@type":"Question","name":"浏览器自带书签和第三方收藏工具有必要同时用吗？","acceptedAnswer":{"@type":"Answer","text":"看是否需要跨设备与失效检测。第三方工具能做检测和标签，导入导出格式常有差异。"}},
+    {"@type":"Question","name":"同人展摊位号一般什么时候公布？","acceptedAnswer":{"@type":"Answer","text":"多数场次在开展前10天左右公布，具体看主办方公告。"}},
+    {"@type":"Question","name":"收藏的壁纸站打不开，怎么判断是临时故障还是关站？","acceptedAnswer":{"@type":"Answer","text":"先看域名是否仍能解析，再看社区讨论帖有无相关讨论。超过一周无恢复且无新讨论，按关站处理。"}}
+  ]
+}
+</script>
+
+<script>
+(function(){
+  // 移动端菜单
+  var menuBtn=document.getElementById('menuBtn');
+  var navMain=document.getElementById('navMain');
+  if(menuBtn&&navMain){
+    menuBtn.addEventListener('click',function(){
+      var open=navMain.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded',open?'true':'false');
+    });
+    navMain.addEventListener('click',function(e){
+      if(e.target.tagName==='A'&&window.innerWidth<=1000){
+        navMain.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded','false');
+      }
+    });
+  }
+
+  // 本地搜索
+  var data=[
+    {t:'新番动画日历',u:'/#channel-anime',k:'新番 动画 放送 日历 2027 冬季档'},
+    {t:'漫画阅读与汉化组',u:'/#channel-comic',k:'漫画 阅读 汉化组 换域名'},
+    {t:'轻小说与Web连载',u:'/#channel-novel',k:'轻小说 web 连载'},
+    {t:'游戏补丁与mod',u:'/#channel-game',k:'游戏 补丁 mod'},
+    {t:'收藏工具与浏览器',u:'/#channel-tool',k:'收藏 工具 浏览器 Raindrop 书签'},
+    {t:'手办与同人周边',u:'/#channel-goods',k:'手办 预售 截止日 同人 周边'},
+    {t:'展会与线下活动',u:'/#channel-event',k:'展会 同人展 摊位 排期'},
+    {t:'音声与广播剧',u:'/#channel-audio',k:'音声 广播剧'},
+    {t:'插画与壁纸',u:'/#channel-art',k:'插画 壁纸'},
+    {t:'同人社区与讨论版',u:'/#channel-community',k:'同人 社区 讨论版'},
+    {t:'领域概览',u:'/#overview',k:'概览 书签 类型'},
+    {t:'精选内容推荐',u:'/#picked',k:'精选 推荐'},
+    {t:'最新更新',u:'/#latest',k:'更新 核验'},
+    {t:'深度解析',u:'/#deep',k:'深度 解析 失效 原因'},
+    {t:'体验指南',u:'/#guide',k:'指南 迁移 步骤'},
+    {t:'常见问题',u:'/#faq',k:'FAQ 问题 跨日放送 截止日'},
+    {t:'用户评论',u:'/#comments',k:'评论'},
+    {t:'相关资讯',u:'/#news',k:'资讯 新闻'},
+    {t:'相关推荐',u:'/#rec',k:'推荐 标签'},
+    {t:'条目可信度分层',u:'/#trust',k:'可信度 分层 核验'}
+  ];
+  var input=document.getElementById('siteSearch');
+  var btn=document.getElementById('searchBtn');
+  var box=document.getElementById('searchResult');
+  function runSearch(){
+    var q=(input.value||'').trim().toLowerCase();
+    if(!q){box.classList.remove('show');box.innerHTML='';return;}
+    var hits=data.filter(function(d){
+      return d.t.toLowerCase().indexOf(q)>-1||d.k.toLowerCase().indexOf(q)>-1;
+    }).slice(0,8);
+    box.classList.add('show');
+    if(!hits.length){
+      box.innerHTML='<div class="sr-title">搜索结果</div><div class="empty">没找到与“'+escapeHtml(input.value)+'”相关的书签或频道，换个词试试，例如“汉化组”“截止日”。</div>';
+      return;
+    }
+    var html='<div class="sr-title">找到 '+hits.length+' 条</div><ul>';
+    hits.forEach(function(h){
+      html+='<li><a href="'+h.u+'">'+escapeHtml(h.t)+'</a></li>';
+    });
+    html+='</ul>';
+    box.innerHTML=html;
+  }
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g,function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+  if(btn){btn.addEventListener('click',runSearch);}
+  if(input){
+    input.addEventListener('keydown',function(e){if(e.key==='Enter'){runSearch();}});
+    input.addEventListener('input',function(){if(!input.value.trim()){box.classList.remove('show');}});
+  }
+  document.addEventListener('click',function(e){
+    if(box&&!box.contains(e.target)&&e.target!==input&&e.target!==btn){box.classList.remove('show');}
+  });
+
+  // 回到顶部
+  var toTop=document.getElementById('toTop');
+  window.addEventListener('scroll',function(){
+    if(window.scrollY>420){toTop.classList.add('show');}else{toTop.classList.remove('show');}
+  },{passive:true});
+  toTop.addEventListener('click',function(){
+    window.scrollTo({top:0,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+  });
+
+  // 侧栏滚动高亮
+  var links=Array.prototype.slice.call(document.querySelectorAll('#sideNav a'));
+  var secs=links.map(function(a){
+    var id=a.getAttribute('href').replace('/#','');
+    return document.getElementById(id);
+  }).filter(Boolean);
+  if('IntersectionObserver' in window&&secs.length){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          var id=en.target.id;
+          links.forEach(function(a){
+            a.classList.toggle('active',a.getAttribute('href')==='/# '+id||a.getAttribute('href')==='#'+id||a.getAttribute('href')==='/# '+id);
+            a.classList.toggle('active',a.getAttribute('href').indexOf('#'+id)>-1);
+          });
+        }
+      });
+    },{rootMargin:'-30% 0px -60% 0px',threshold:0});
+    secs.forEach(function(s){io.observe(s);});
+  }
+})();
+</script>
+</body>
+          </html>
